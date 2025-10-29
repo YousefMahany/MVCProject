@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteG04.BLL.DTOS
+namespace RouteG04.BLL.DTOS.Department
 {
     public class UpdatedDepartmentDto
     {

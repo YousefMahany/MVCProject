@@ -1,5 +1,6 @@
 ﻿using RouteG04.BLL.DTOS;
-using RouteG04.DAL.Models;
+using RouteG04.BLL.DTOS.Department;
+using RouteG04.DAL.Models.DepartmentModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace RouteG04.BLL.Factories
                 DeptId = D.Id,
                 Name = D.Name,
                 Code = D.Code,
+                Description = D.Description,
                 DateOfCreation = D.CreatedOn
             };
         }

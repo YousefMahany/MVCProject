@@ -1,13 +1,15 @@
 ﻿using RouteG04.BLL.DTOS;
+using RouteG04.BLL.DTOS.Department;
 using RouteG04.BLL.Factories;
-using RouteG04.DAL.Repositories;
+using RouteG04.BLL.Services.Interfaces;
+using RouteG04.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteG04.BLL.Services
+namespace RouteG04.BLL.Services.Classes
 {
     public class DepartmentService(IDepartmentRepository departmentRepository) : IDepartmentService
     {

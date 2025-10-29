@@ -1,6 +1,7 @@
 ﻿using RouteG04.BLL.DTOS;
+using RouteG04.BLL.DTOS.Department;
 
-namespace RouteG04.BLL.Services
+namespace RouteG04.BLL.Services.Interfaces
 {
     public interface IDepartmentService
     {

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RouteG04.BLL.DTOS
+﻿namespace RouteG04.PL.ViewModels.DepartmentViewModels
 {
-    public class CreatedDepartmentDto
+    public class DepartmentEditViewModels
     {
         public string Name { get; set; } = null!;
         public string Code { get; set; } = null!;

@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteG04.DAL.Models
+namespace RouteG04.BLL.DTOS.Department
 {
-    public class Department : BaseEntity
+    public class DepartmentsDto
     {
+        public int DeptId { get; set; }
         public string Name { get; set; } = null!;
         public string Code { get; set; } = null!;
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
+        public DateTime? DateOfCreation { get; set; }
 
     }
 }

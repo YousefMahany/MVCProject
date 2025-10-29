@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using RouteG04.BLL.Services;
+using RouteG04.BLL.Services.Classes;
+using RouteG04.BLL.Services.Interfaces;
 using RouteG04.DAL.Data.Contexts;
-using RouteG04.DAL.Repositories;
+using RouteG04.DAL.Repositories.Classes;
+using RouteG04.DAL.Repositories.Interfaces;
 
 namespace RouteG04.PL
 {
@@ -22,6 +24,8 @@ namespace RouteG04.PL
             builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             //Register To Services In DI Container
             builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+
+            builder.Services.AddScoped<IEmployeeRepository,EmployeeRepository>();
             #endregion
 
             var app = builder.Build();

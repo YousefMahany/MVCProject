@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RouteG04.DAL.Models
+namespace RouteG04.DAL.Models.Shared
 {
     public class BaseEntity
     {
