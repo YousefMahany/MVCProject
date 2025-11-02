@@ -1,27 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RouteG04.BLL.DTOS;
 using RouteG04.BLL.DTOS.Department;
+using RouteG04.BLL.DTOS.Employee;
+using RouteG04.BLL.Services.Classes;
 using RouteG04.BLL.Services.Interfaces;
+using RouteG04.DAL.Models.EmployeeModule;
 using RouteG04.PL.ViewModels.DepartmentViewModels;
-using System.Diagnostics;
 
 namespace RouteG04.PL.Controllers
 {
-    public class DepartmentsController(IDepartmentService deparmentService, ILogger<DepartmentsController> logger, IWebHostEnvironment environment) : Controller
+    public class EmployeeController(IEmployeeService employeeService, IWebHostEnvironment environment,ILogger<EmployeeController> logger) : Controller
     {
-        private readonly IDepartmentService _deparmentService = deparmentService;
-        private readonly ILogger<DepartmentsController> _logger = logger;
+        private readonly IEmployeeService _employeeService = employeeService;
         private readonly IWebHostEnvironment _environment = environment;
+        private readonly ILogger _logger = logger;
 
         #region Index
-        [HttpGet]
         public IActionResult Index()
         {
-            var Departments = _deparmentService.GetAllDepartments();
-            return View(Departments);
-        } 
+            var Employees = _employeeService.GetAllEmployees(false);
+            return View(Employees);
+        }
         #endregion
-        #region Create Department
+        #region Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -29,23 +29,23 @@ namespace RouteG04.PL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        public IActionResult Create(CreatedEmployeeDto employeeDto)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    int Result = _deparmentService.AddDepartment(departmentDto);
-                    if (Result > 0)
+                    int Result = _employeeService.CreateEmployee(employeeDto);
+                    if(Result>0)
                     {
                         return RedirectToAction(nameof(Index));
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Department Can Not Be Created");
-
+                         ModelState.AddModelError(string.Empty, "Can Not Create Employee");
                     }
                 }
+
                 catch (Exception ex)
                 {
                     //Log Exception
@@ -53,20 +53,19 @@ namespace RouteG04.PL.Controllers
                     if (_environment.IsDevelopment())
                     {
                         ModelState.AddModelError(string.Empty, ex.Message);
-
+                        return RedirectToAction(nameof(Index));
                     }
 
                     //Deployment
                     else
                     {
                         _logger.LogError(ex.Message);
-
+                        return View("ErrorView", ex);
                     }
                 }
+
             }
-
-            return View(departmentDto);
-
+            return View(employeeDto);
         }
         #endregion
         #region Details
@@ -74,9 +73,9 @@ namespace RouteG04.PL.Controllers
         public IActionResult Details(int? id)
         {
             if (!id.HasValue) return BadRequest();
-            var Department = _deparmentService.GetDepartmentById(id.Value);
-            if (Department is null) return NotFound();
-            return View(Department);
+            var Employee = _employeeService.GetEmployeeId(id.Value);
+            if (Employee is null) return NotFound();
+            return View(Employee);
 
         }
         #endregion
@@ -85,44 +84,43 @@ namespace RouteG04.PL.Controllers
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue) return BadRequest();
-            var Department = _deparmentService.GetDepartmentById(id.Value);
-            if (Department is null) return NotFound();
-            var DepartmentViewModel = new DepartmentEditViewModels
+            var Employee = _employeeService.GetEmployeeId(id.Value);
+            if (Employee is null) return NotFound();
+            var EmployeeDto = new UpdatedEmployeeDto
             {
-                Code = Department.Code,
-                Name = Department.Name,
-                Description = Department.Description,
-                DateOfCreation = Department.DateOfCreation
+                Id = Employee.Id,
+                Name = Employee.Name,
+                Salary = Employee.Salary,
+                Address = Employee.Address,
+                Age = Employee.Age,
+                Email = Employee.Email,
+                PhoneNumber = Employee.PhoneNumber,
+                IsActive = Employee.IsActive,
+                HiringDate = Employee.HiringDate,
+                Gender = Employee.EmpGender,
+                EmployeeType = Employee.EmployeeType
             };
-            return View(DepartmentViewModel);
+            return View(EmployeeDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit ([FromRoute]int? id , DepartmentEditViewModels viewModels)
+        public IActionResult Edit([FromRoute] int? id, UpdatedEmployeeDto employeeDto)
         {
-            if (!id.HasValue) return View(viewModels);
+            if (!id.HasValue) return View(employeeDto);
             try
             {
-                var UpdatedDepartment = new UpdatedDepartmentDto()
-                {
-                    Id = id.Value,
-                    Code = viewModels.Code,
-                    Name = viewModels.Name,
-                    Description = viewModels.Description,
-                    DateOfCreation = viewModels.DateOfCreation
-                };
 
-                int Result = _deparmentService.UpdateDepartment(UpdatedDepartment);
+                int Result = _employeeService.UpdateEmployee(employeeDto);
 
-                if(Result > 0)
+                if (Result > 0)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Department Can Not Be Updated");
-                    return View(viewModels);
+                    ModelState.AddModelError(string.Empty, "Employee Can Not Be Updated");
+                    return View(employeeDto);
 
                 }
             }
@@ -133,7 +131,7 @@ namespace RouteG04.PL.Controllers
                 if (_environment.IsDevelopment())
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
-                    return View(viewModels);
+                    return View(employeeDto);
                 }
 
                 //Deployment
@@ -148,31 +146,22 @@ namespace RouteG04.PL.Controllers
         }
         #endregion
         #region Delete
-        //[HttpGet ]
-        //public IActionResult Delete(int? id)
-        //{
-        //    if(!id.HasValue) return BadRequest();
-        //    var Department = _deparmentService.GetDepartmentById(id.Value);
-        //    if (Department is null) return NotFound();
-        //    return View(Department);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            if(id == 0) return BadRequest();
+            if (id == 0) return BadRequest();
             try
             {
-                bool IsDeleted = _deparmentService.DeleteDepartment(id);
+                var IsDeleted = _employeeService.DeleteEmployee(id);
                 if (IsDeleted)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Department Is Not Deleted");
-                    return RedirectToAction(nameof(Index), new { id });
+                    ModelState.AddModelError(string.Empty, "Employee Can Not Be Deleted");
+                    return RedirectToAction(nameof(Delete), new { id = id });
                 }
             }
             catch (Exception ex)
@@ -181,7 +170,7 @@ namespace RouteG04.PL.Controllers
                 //Development
                 if (_environment.IsDevelopment())
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
+                   // ModelState.AddModelError(string.Empty, ex.Message);
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -189,7 +178,7 @@ namespace RouteG04.PL.Controllers
                 else
                 {
                     _logger.LogError(ex.Message);
-                    return View("ErrorView",ex);
+                    return View("ErrorView", ex);
                 }
             }
         }

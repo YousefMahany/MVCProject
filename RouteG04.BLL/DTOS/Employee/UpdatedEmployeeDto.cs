@@ -30,8 +30,8 @@ namespace RouteG04.BLL.DTOS.Employee
         [Phone]
         public string? PhoneNumber { get; set; }
         [Display(Name = "Hiring Date")]
-        public DateTime HiringDate { get; set; }
-        public string Gender { get; set; }
+        public DateTime? HiringDate { get; set; }
+        public Gender Gender { get; set; }
         [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
     }

@@ -19,10 +19,10 @@ namespace RouteG04.BLL.DTOS.Employee
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         //---------------------
-        public DateOnly? HiringDate { get; set; }
-        public string EmpGender { get; set; }
+        public DateTime? HiringDate { get; set; }
+        public Gender EmpGender { get; set; }
         [Display(Name = "Employee Type")]
-        public string EmployeeType { get; set; }
+        public EmployeeTypes EmployeeType { get; set; }
         //----------------------------
         public int CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

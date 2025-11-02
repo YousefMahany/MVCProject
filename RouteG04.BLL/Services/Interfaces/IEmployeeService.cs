@@ -11,7 +11,7 @@ namespace RouteG04.BLL.Services.Interfaces
     {
         IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking);
         EmployeeDetailsDto? GetEmployeeId(int id);
-        int CreateEmployee(CreatedDepartmentDto departmentDto);
+        int CreateEmployee(CreatedEmployeeDto departmentDto);
         int UpdateEmployee(UpdatedEmployeeDto employeeDto);
         bool DeleteEmployee(int id);
     }

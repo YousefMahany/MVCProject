@@ -16,7 +16,7 @@ namespace RouteG04.DAL.Models.EmployeeModule
         public bool IsActive { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public DateTime HiringDate { get; set; }
+        public DateTime? HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeTypes EmployeeType { get; set; }
     }

@@ -15,11 +15,13 @@ namespace RouteG04.DAL.Repositories.Classes
         {
             if (IsTracking)
             {
-                return _dbContext.Set<TEntity>().ToList();
+                return _dbContext.Set<TEntity>().ToList()
+                    .Where(e=>!e.IsDeleted);
             }
             else
             {
-                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+                return _dbContext.Set<TEntity>().AsNoTracking().ToList()
+                    .Where(e => !e.IsDeleted);
             }
         }
 

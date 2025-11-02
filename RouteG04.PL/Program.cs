@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RouteG04.BLL;
 using RouteG04.BLL.Services.Classes;
 using RouteG04.BLL.Services.Interfaces;
 using RouteG04.DAL.Data.Contexts;
@@ -26,6 +27,8 @@ namespace RouteG04.PL
             builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 
             builder.Services.AddScoped<IEmployeeRepository,EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService,EmployeeService>();
+            builder.Services.AddAutoMapper(E => E.AddProfile(new MappingProfiles()));
             #endregion
 
             var app = builder.Build();
