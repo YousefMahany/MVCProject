@@ -1,16 +1,12 @@
-﻿using RouteG04.DAL.Models.Shared.Enums;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using RouteG04.DAL.Models.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RouteG04.BLL.DTOS.Employee
+namespace RouteG04.PL.ViewModels.EmployeeViewModels
 {
-    public class UpdatedEmployeeDto
+    public class EmployeeViewModel
     {
-        public int Id { get; set; }
+
         [Required]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(3, ErrorMessage = "Min length should be 3 characters")]
@@ -34,7 +30,9 @@ namespace RouteG04.BLL.DTOS.Employee
         public Gender Gender { get; set; }
         [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
+        [Display(Name="Department")]
         public int? DepartmentId { get; set; }
-     
+        public IEnumerable<SelectListItem>? Departments { get; set; }
+
     }
 }

@@ -17,5 +17,6 @@ namespace RouteG04.BLL.DTOS
         public DateTime? LastModificationOn { get; set; }
         public int CreatedBy { get; set; } //UserId
         public bool IsDeleted { get; set; }//SoftDelete
+       
     }
 }

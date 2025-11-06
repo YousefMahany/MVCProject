@@ -17,6 +17,8 @@ namespace RouteG04.PL.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewData["Message"] = new DepartmentsDto() { Name = "TestViewData" };
+            ViewBag.Message = new DepartmentsDto() { Name = "TestViewData" };
             var Departments = _deparmentService.GetAllDepartments();
             return View(Departments);
         } 
@@ -29,22 +31,32 @@ namespace RouteG04.PL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreatedDepartmentDto departmentDto)
+        public IActionResult Create(DepartmentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var departmentDto = new CreatedDepartmentDto()
+                    {
+                        Name = viewModel.Name,
+                        Code = viewModel.Code,
+                        DateOfCreation = viewModel.DateOfCreation,
+                        Description = viewModel.Description
+                    };
+
                     int Result = _deparmentService.AddDepartment(departmentDto);
+                    string Message;
                     if (Result > 0)
                     {
-                        return RedirectToAction(nameof(Index));
+                        Message = $"Department : {viewModel.Name} Has Been Created";
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Department Can Not Be Created");
-
+                        Message = $"Department : {viewModel.Name} Has Not Been Created";
                     }
+                    TempData["Message"] =Message ;
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -65,7 +77,7 @@ namespace RouteG04.PL.Controllers
                 }
             }
 
-            return View(departmentDto);
+            return View(viewModel);
 
         }
         #endregion
@@ -87,7 +99,7 @@ namespace RouteG04.PL.Controllers
             if (!id.HasValue) return BadRequest();
             var Department = _deparmentService.GetDepartmentById(id.Value);
             if (Department is null) return NotFound();
-            var DepartmentViewModel = new DepartmentEditViewModels
+            var DepartmentViewModel = new DepartmentViewModel
             {
                 Code = Department.Code,
                 Name = Department.Name,
@@ -99,7 +111,7 @@ namespace RouteG04.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit ([FromRoute]int? id , DepartmentEditViewModels viewModels)
+        public IActionResult Edit ([FromRoute]int? id , DepartmentViewModel viewModels)
         {
             if (!id.HasValue) return View(viewModels);
             try

@@ -17,10 +17,12 @@ namespace RouteG04.BLL
         public MappingProfiles()
         {
             #region Employee Mapping
-            CreateMap<Employee, EmployeeDto>();
+            CreateMap<Employee, EmployeeDto>()
+                .ForMember(dest=>dest.Department,options=>options.MapFrom(src=>src.Department!=null?src.Department.Name:null));
             CreateMap<Employee, EmployeeDetailsDto>()
                 .ForMember(d => d.EmpGender, options => options.MapFrom(src => src.Gender))
-                .ForMember(d => d.EmployeeType, options => options.MapFrom(src => src.EmployeeType));
+                .ForMember(d => d.EmployeeType, options => options.MapFrom(src => src.EmployeeType))
+                .ForMember(dest => dest.Department, options => options.MapFrom(src => src.Department != null ? src.Department.Name : null));
             CreateMap<CreatedEmployeeDto, Employee>();
             CreateMap<UpdatedEmployeeDto, Employee>();
 

@@ -16,5 +16,6 @@ namespace RouteG04.BLL.DTOS.Department
         public string Code { get; set; } = null!;
         public string? Description { get; set; }
         public DateTime? DateOfCreation { get; set; }
+        
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using RouteG04.DAL.Models.DepartmentModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace RouteG04.DAL.Models.EmployeeModule
         public DateTime? HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeTypes EmployeeType { get; set; }
+        public int? DepartmentId { get; set; } 
+        public virtual Department? Department { get; set; }
     }
 }

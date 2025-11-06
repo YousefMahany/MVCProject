@@ -10,7 +10,16 @@ namespace RouteG04.DAL.Data.Configurations
             builder.Property(p => p.Id).UseIdentityColumn(10, 10);
             builder.Property(p => p.Name).HasColumnType("varchar(20)");
             builder.Property(p => p.Code).HasColumnType("varchar(20)");
+            builder.HasMany(D => D.employees)
+                .WithOne(d => d.Department)
+                .HasForeignKey(d => d.DepartmentId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+
+
             base.Configure(builder);
+
+
 
         }
     }

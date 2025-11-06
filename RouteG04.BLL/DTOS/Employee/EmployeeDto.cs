@@ -22,5 +22,7 @@ namespace RouteG04.BLL.DTOS.Employee
         public Gender Gender { get; set; }
         [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
+        public int? DepartmentId { get; set; }
+        public string? Department { get; set; }
     }
 }
