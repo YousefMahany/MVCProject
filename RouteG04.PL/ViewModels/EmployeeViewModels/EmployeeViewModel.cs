@@ -33,6 +33,6 @@ namespace RouteG04.PL.ViewModels.EmployeeViewModels
         [Display(Name="Department")]
         public int? DepartmentId { get; set; }
         public IEnumerable<SelectListItem>? Departments { get; set; }
-
+        public IFormFile? Image { get; set; }
     }
 }

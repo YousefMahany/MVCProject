@@ -22,7 +22,8 @@ namespace RouteG04.BLL
             CreateMap<Employee, EmployeeDetailsDto>()
                 .ForMember(d => d.EmpGender, options => options.MapFrom(src => src.Gender))
                 .ForMember(d => d.EmployeeType, options => options.MapFrom(src => src.EmployeeType))
-                .ForMember(dest => dest.Department, options => options.MapFrom(src => src.Department != null ? src.Department.Name : null));
+                .ForMember(dest => dest.Department, options => options.MapFrom(src => src.Department != null ? src.Department.Name : null))
+                 .ForMember(d => d.Image, options => options.MapFrom(src => src.ImageName));
             CreateMap<CreatedEmployeeDto, Employee>();
             CreateMap<UpdatedEmployeeDto, Employee>();
 

@@ -8,10 +8,10 @@ namespace RouteG04.DAL.Repositories.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        int Add(TEntity entity);
+        void Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool withtracking = false);
         TEntity? GetById(int id);
-        int Delete(TEntity entity);
-        int Update(TEntity entity);
+        void Delete(TEntity entity);
+        void Update(TEntity entity);
     }
 }

@@ -60,7 +60,8 @@ namespace RouteG04.PL.Controllers
                         PhoneNumber = employeeVM.PhoneNumber,
                         Salary = employeeVM.Salary,
                         DepartmentId = employeeVM.DepartmentId,
-                        IsActive = employeeVM.IsActive
+                        IsActive = employeeVM.IsActive,
+                        Image = employeeVM.Image
 
                     };
                     int Result = _employeeService.CreateEmployee(employeeDto);

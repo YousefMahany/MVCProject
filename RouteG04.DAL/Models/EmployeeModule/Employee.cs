@@ -22,5 +22,7 @@ namespace RouteG04.DAL.Models.EmployeeModule
         public EmployeeTypes EmployeeType { get; set; }
         public int? DepartmentId { get; set; } 
         public virtual Department? Department { get; set; }
+        public string? ImageName { get; set; }
+
     }
 }

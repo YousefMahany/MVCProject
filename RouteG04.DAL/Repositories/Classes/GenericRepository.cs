@@ -31,25 +31,25 @@ namespace RouteG04.DAL.Repositories.Classes
 
         //Add
 
-        public int Add(TEntity entity)
+        public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            return _dbContext.SaveChanges();
+           
         }
 
         //Update
 
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity);
-            return _dbContext.SaveChanges();
+           
         }
 
         //Delete
-        public int Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-            return _dbContext.SaveChanges();
+           
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RouteG04.DAL.Models.Shared.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using RouteG04.DAL.Models.Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,6 +35,7 @@ namespace RouteG04.BLL.DTOS.Employee
         [Display(Name = "Employee Type")]
         public EmployeeTypes EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
-       
+        public IFormFile? Image { get; set; }
+
     }
 }
