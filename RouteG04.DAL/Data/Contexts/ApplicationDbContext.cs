@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.Reflection;
 using RouteG04.DAL.Models.DepartmentModule;
 using RouteG04.DAL.Models.EmployeeModule;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace RouteG04.DAL.Data.Contexts
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
         
         public DbSet<Department> Departments { get; set; }
@@ -17,6 +19,7 @@ namespace RouteG04.DAL.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

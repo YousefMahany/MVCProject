@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RouteG04.BLL;
 using RouteG04.BLL.Services.AttachmentsService;
 using RouteG04.BLL.Services.Classes;
 using RouteG04.BLL.Services.Interfaces;
 using RouteG04.DAL.Data.Contexts;
+using RouteG04.DAL.Models.Shared;
 using RouteG04.DAL.Repositories.Classes;
 using RouteG04.DAL.Repositories.Interfaces;
 
@@ -33,6 +35,11 @@ namespace RouteG04.PL
             builder.Services.AddAutoMapper(E => E.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService,AttachmentService>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
             #endregion
 
             var app = builder.Build();
@@ -53,7 +60,7 @@ namespace RouteG04.PL
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Register}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
