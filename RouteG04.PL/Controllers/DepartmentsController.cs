@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RouteG04.BLL.DTOS;
 using RouteG04.BLL.DTOS.Department;
 using RouteG04.BLL.Services.Interfaces;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 
 namespace RouteG04.PL.Controllers
 {
+    [Authorize]
     public class DepartmentsController(IDepartmentService deparmentService, ILogger<DepartmentsController> logger, IWebHostEnvironment environment) : Controller
     {
         private readonly IDepartmentService _deparmentService = deparmentService;

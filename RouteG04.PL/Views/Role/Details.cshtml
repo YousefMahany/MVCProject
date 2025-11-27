@@ -1,0 +1,28 @@
+﻿@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Role Details</h1>
+
+<div class="card" style="max-width: 400px; margin-top:20px;">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Name</h4>
+
+        <p class="card-text">
+            <strong>ID:</strong> @Model.Id
+        </p>
+        <p class="card-text">
+            <strong>Role Name:</strong> @Model.Name
+        </p>
+
+    </div>
+</div>
+
+<br />
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

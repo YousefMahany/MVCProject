@@ -8,6 +8,7 @@ using RouteG04.DAL.Models.DepartmentModule;
 using RouteG04.DAL.Models.EmployeeModule;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using RouteG04.DAL.Models.UserModule;
 
 namespace RouteG04.DAL.Data.Contexts
 {
@@ -16,6 +17,8 @@ namespace RouteG04.DAL.Data.Contexts
         
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employee { get; set; }
+        //public DbSet<User> Users {  get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

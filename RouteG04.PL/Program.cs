@@ -35,11 +35,25 @@ namespace RouteG04.PL
             builder.Services.AddAutoMapper(E => E.AddProfile(new MappingProfiles()));
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService,AttachmentService>();
+            builder.Services.AddScoped<IUserService,UserService>();
+            builder.Services.AddScoped<IRoleService,RoleService>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
-
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/SignOut";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
+
+
             #endregion
 
             var app = builder.Build();
@@ -60,7 +74,7 @@ namespace RouteG04.PL
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Register}/{id?}")
+                pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

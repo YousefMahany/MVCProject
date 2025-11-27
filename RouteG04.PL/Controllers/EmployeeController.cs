@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RouteG04.BLL.DTOS.Department;
@@ -11,6 +12,7 @@ using RouteG04.PL.ViewModels.EmployeeViewModels;
 
 namespace RouteG04.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController(IEmployeeService employeeService, IWebHostEnvironment environment,ILogger<EmployeeController> logger,IDepartmentService departmentService) : Controller
     {
         private readonly IEmployeeService _employeeService = employeeService;

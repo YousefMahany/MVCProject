@@ -1,4 +1,5 @@
 ﻿using Demo.Presentation.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RouteG04.DAL.Models.Shared;
@@ -71,6 +72,7 @@ namespace RouteG04.PL.Controllers
         #endregion
         #region SignOut
         [HttpGet]
+        [Authorize]
         public IActionResult SignOut()
         {
             _signInManager.SignOutAsync();
@@ -79,10 +81,12 @@ namespace RouteG04.PL.Controllers
         #endregion
         #region Forget Password
         [HttpGet]
+       
         public IActionResult ForgetPassword() => View();
         #endregion
         #region Send Reset Password Link
         [HttpPost]
+       
         public IActionResult SendResetPasswordLink(ForgetPasswordViewModel forgetPassword)
         {
             if (ModelState.IsValid)
@@ -112,6 +116,7 @@ namespace RouteG04.PL.Controllers
         #endregion
         #region CheckYourInbox
         [HttpGet]
+       
         public IActionResult CheckYourInbox() => View();
 
         #endregion
@@ -148,6 +153,9 @@ namespace RouteG04.PL.Controllers
             }
             return View(nameof(ResetPassword),resetPassword);
         }
+        #endregion
+        #region AccessDenied
+        public IActionResult AccessDenied() => View();
         #endregion
     }
 }

@@ -2,8 +2,10 @@
 using RouteG04.BLL.DTOS;
 using RouteG04.BLL.DTOS.Department;
 using RouteG04.BLL.DTOS.Employee;
+using RouteG04.BLL.DTOS.User;
 using RouteG04.DAL.Models.DepartmentModule;
 using RouteG04.DAL.Models.EmployeeModule;
+using RouteG04.DAL.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +44,18 @@ namespace RouteG04.BLL
 
             CreateMap<UpdatedDepartmentDto, Department>()
                 .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.DateOfCreation));
+            #endregion
+            #region User Mapping
+            CreateMap<ApplicationUser, UserDto>()
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.Role, opt => opt.Ignore()); // هتعبيها باليد بعدين
+
+            CreateMap<CreatedUserDto, ApplicationUser>();
+            CreateMap<UpdatedUserDto, ApplicationUser>();
+            CreateMap<ApplicationUser, UserDetailsDto>();
             #endregion
 
         }

@@ -10,6 +10,8 @@ namespace RouteG04.DAL.Repositories.Interfaces
     {
         public IEmployeeRepository EmployeeRepository { get; }
         public IDepartmentRepository DepartmentRepository { get; }
+        public IUserRepository UserRepository { get; }
+        public IRoleRepository RoleRepository { get; }
         int SaveChanges ();
     }
 }
